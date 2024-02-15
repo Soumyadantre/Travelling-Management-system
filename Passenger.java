@@ -28,6 +28,37 @@ public class Passenger {
     }
 
     // Getters and Setters
+     public boolean signUpForActivity(Activity activity) {
+        // Check if the activity has available capacity
+        if (activity.getCurrentParticipants() < activity.getCapacity()) {
+            // Check if the passenger has sufficient balance
+            if ("standard".equalsIgnoreCase(passengerType) && balance >= activity.getCost()) {
+                // Deduct the cost from the balance for standard passengers
+                deductBalance(activity.getCost());
+                // Add the activity to the list of activities signed up by the passenger
+                activitiesSignedUp.add(activity);
+                // Increment the current participants for the activity
+                activity.incrementParticipants();
+                return true; // Sign up successful
+            } else if ("gold".equalsIgnoreCase(passengerType) && balance >= 0.9 * activity.getCost()) {
+                // Deduct the discounted cost from the balance for gold passengers (10% discount)
+                deductBalance(0.9 * activity.getCost());
+                // Add the activity to the list of activities signed up by the passenger
+                activitiesSignedUp.add(activity);
+                // Increment the current participants for the activity
+                activity.incrementParticipants();
+                return true; // Sign up successful
+            } else if ("premium".equalsIgnoreCase(passengerType)) {
+                // Premium passengers can sign up for activities for free
+                // Add the activity to the list of activities signed up by the passenger
+                activitiesSignedUp.add(activity);
+                // Increment the current participants for the activity
+                activity.incrementParticipants();
+                return true; // Sign up successful
+            }
+        }
+        return false; // Sign up unsuccessful (either no capacity or insufficient balance)
+    }
 
     @Override
     public boolean equals(Object o) {
