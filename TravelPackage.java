@@ -64,7 +64,9 @@ public class TravelPackage {
                     ", Price: " + activity.getCost());
         }
     }
-
+    public List<Passenger> getPassengers() {
+        return passengers;  // assuming passengers is a private List<Passenger> field
+    }
     public void printAvailableActivities() {
         System.out.println("Available Activities:");
         for (Destination destination : itinerary) {
@@ -87,7 +89,9 @@ public class TravelPackage {
     }
 
     // Getters and Setters
-
+    public List<Destination> getItinerary() {
+        return itinerary;  // assuming itinerary is a private List<Destination> field
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
