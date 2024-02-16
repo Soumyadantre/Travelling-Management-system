@@ -16,6 +16,21 @@ public class Destination {
     }
 
     // Getters and Setters
+    public String getName() {
+    return name;
+}
+
+    public List<Activity> getActivities() {
+    return activities;
+}
+
+    public void setName(String name) {
+    this.name = name;
+}
+
+    public void setActivities(List<Activity> activities) {
+    this.activities = activities;
+}
 
     @Override
     public boolean equals(Object o) {
