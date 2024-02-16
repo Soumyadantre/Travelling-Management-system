@@ -15,13 +15,15 @@ public class Activity {
 
     public boolean signUp(Passenger passenger) {
         if (currentParticipants < capacity) {
-            passenger.deductBalance(cost);
-            currentParticipants++;
-            return true;
-        } else {
-            return false;
+            double discountedCost = calculateDiscountedCost(passenger);
+            if (passenger.deductBalance(discountedCost)) {
+                currentParticipants++;
+                return true;  // Successful sign-up
+            }
         }
+        return false;  // Failed sign-up
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -33,7 +35,15 @@ public class Activity {
                 Objects.equals(name, activity.name) &&
                 Objects.equals(description, activity.description);
     }
-
+    
+    private double calculateDiscountedCost(Passenger passenger) {
+        // Apply discount for gold passengers
+        if ("gold".equals(passenger.getPassengerType())) {
+            return 0.9 * cost;  // 10% discount for gold passengers
+        } else {
+            return cost;
+        }
+    }
     @Override
     public int hashCode() {
         return Objects.hash(name, description, cost, capacity, currentParticipants);
